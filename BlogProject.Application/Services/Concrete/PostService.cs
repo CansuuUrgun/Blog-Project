@@ -9,28 +9,28 @@ public class PostService(IPostRepository postRepository) : IPostService
 
     public async Task<PostResponse> CreateAsync(CreatePostRequest req)
     {
-        var post = new Post(req.Title, req.Content);
-        await postRepository.AddAsync(post);
+        //var post = Post.Create(req.Title, req.Content);
+        //await postRepository.AddAsync(post);
 
-        return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
+        //return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
     }
 
     public async Task DeleteAsync(int id)
     {
-        await postRepository.DeleteAsync(id);
+        //await postRepository.DeleteAsync(id);
     }
 
     public async Task<IEnumerable<PostResponse>> GetAllAsync()
     {
-        var posts = await postRepository.GetAllAsync();
-        return posts.Select(p => new PostResponse(p.Id, p.Title, p.Content, p.CreatedAt, p.UpdatedAt));
+        //var posts = await postRepository.GetAllAsync();
+        //return posts.Select(p => new PostResponse(p.Id, p.Title, p.Content, p.CreatedAt, p.UpdatedAt));
     }
 
     public async Task<PostResponse?> GetByIdAsync(int id)
     {
-        var post = await postRepository.GetByIdAsync(id);
-        if (post is null) return null;
-        return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
+        //var post = await postRepository.GetByIdAsync(id);
+        //if (post is null) return null;
+        //return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
     }
 
     public async Task<PostResponse?> UpdateAsync(int id, UpdatePostRequest req)

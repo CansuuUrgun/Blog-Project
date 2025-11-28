@@ -1,5 +1,6 @@
 using BlogProject.Application.Repositories;
 using BlogProject.Application.Services;
+using BlogProject.Domain.Entities;
 using BlogProject.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-    .AddScoped<IPostRepository, InMemoryPostRepository>()
+    .AddScoped<IRepository<Post>, InMemoryPostRepository>()
+    .AddScoped<IRepository<User>, InMemoryUserRepository>()
     .AddScoped<IPostService,PostService>();
 
 var app = builder.Build();
