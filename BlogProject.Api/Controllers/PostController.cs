@@ -35,8 +35,11 @@ public class PostController(IPostService postService) : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdatePostRequest req)
     {
-        await postService.UpdateAsync(id, req);
-        return NoContent();
+        var updated = await postService.UpdateAsync(id, req);
+        
+        if (updated is null)
+            return NotFound();
+        return Ok(updated);
     }
 
     [HttpDelete("{id:int}")]

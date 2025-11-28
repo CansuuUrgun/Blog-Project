@@ -15,23 +15,29 @@ public class PostService(IPostRepository postRepository) : IPostService
         return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        await postRepository.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<PostResponse>> GetAllAsync()
+    public async Task<IEnumerable<PostResponse>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var posts = await postRepository.GetAllAsync();
+        return posts.Select(p => new PostResponse(p.Id, p.Title, p.Content, p.CreatedAt, p.UpdatedAt));
     }
 
-    public Task<PostResponse?> GetByIdAsync(int id)
+    public async Task<PostResponse?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var post = await postRepository.GetByIdAsync(id);
+        if (post is null) return null;
+        return new PostResponse(post.Id, post.Title, post.Content, post.CreatedAt, post.UpdatedAt);
     }
 
-    public Task UpdateAsync(int id, UpdatePostRequest req)
+    public async Task<PostResponse?> UpdateAsync(int id, UpdatePostRequest req)
     {
-        throw new NotImplementedException();
+        var updated = await postRepository.UpdateAsync(id, req.Title, req.Content);
+        if (updated is null) return null;
+        
+        return new PostResponse(updated.Id, updated.Title, updated.Content, updated.CreatedAt, updated.UpdatedAt);
     }
 }

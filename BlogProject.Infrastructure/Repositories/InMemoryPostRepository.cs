@@ -1,10 +1,11 @@
 ﻿using BlogProject.Application.Repositories;
 using BlogProject.Domain.Entities;
+using System.Data;
 
 namespace BlogProject.Infrastructure.Repositories;
 public class InMemoryPostRepository : IPostRepository
 {
-    private readonly List<Post> posts = new();
+    private static readonly List<Post> posts = new();
     private static int idCounter = 0;
     public async Task<Post> AddAsync(Post post)
     {
@@ -21,11 +22,11 @@ public class InMemoryPostRepository : IPostRepository
         return;
     }
     
-    public async Task<Post?> UpdateAsync(Post post)
+    public async Task<Post?> UpdateAsync(int id, string title, string content)
     {
-        var postToUpdate = posts.FirstOrDefault(p => p.Id == post.Id);
+        var postToUpdate = posts.FirstOrDefault(p => p.Id == id);
         if (postToUpdate is not null)
-            postToUpdate.Update(post.Title, post.Content);
+            postToUpdate.Update(title, content);
         return postToUpdate;
     }
     public async Task<Post?> GetByIdAsync(int id) => posts.FirstOrDefault(p => p.Id == id);
