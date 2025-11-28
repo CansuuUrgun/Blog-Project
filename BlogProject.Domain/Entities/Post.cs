@@ -14,6 +14,7 @@ public class Post
         CreatedAt = DateTime.UtcNow;
     }
 
+    public void SetId(int id) => Id = id;
     public void Update(string title, string content)
     {
         Title = title;
