@@ -18,7 +18,7 @@ public class PostController(IPostService postService) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var post = await postService.GetByIdAsync(id);
         if (post is null) return NotFound();
@@ -32,8 +32,8 @@ public class PostController(IPostService postService) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = createdPost.Id }, createdPost);
     }
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] UpdatePostRequest req)
+    [HttpPut("{id:Guid}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdatePostRequest req)
     {
         var updated = await postService.UpdateAsync(id, req);
         
@@ -42,8 +42,8 @@ public class PostController(IPostService postService) : ControllerBase
         return Ok(updated);
     }
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> Delete(Guid id)
     {
         await postService.DeleteAsync(id);
         return NoContent();

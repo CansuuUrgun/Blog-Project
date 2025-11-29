@@ -36,27 +36,19 @@ public class User
             throw new DomainException("PasswordHash cannot be empty");
         return new User(username, email, passwordHash);
     }
-    public void ChangeUsername(string newUserName)
+    public void Update(string userName,string email, string passwordHash)
     {
-        if (string.IsNullOrWhiteSpace(newUserName))
+        if (string.IsNullOrWhiteSpace(userName))
             throw new DomainException("Username cannot be empty");
-        Username = newUserName;
-        UpdatedAt = DateTime.UtcNow;
-    }
-    public void ChangeEmail(string newEmail)
-    {
-        if (string.IsNullOrWhiteSpace(newEmail))
+        if (string.IsNullOrWhiteSpace(email))
             throw new DomainException("Email cannot be empty");
-        if (!newEmail.Contains('@'))
-            throw new DomainException("Email is not valid");
-        Email = newEmail;
-        UpdatedAt = DateTime.UtcNow;
-    }
-    public void ChangePasswordHash(string newPasswordHash)
-    {
-        if (string.IsNullOrWhiteSpace(newPasswordHash))
+        if (!email.Contains('@'))
+            throw new DomainException("Email not valid");
+        if (string.IsNullOrWhiteSpace(passwordHash))
             throw new DomainException("Password cannot be empty");
-        PasswordHash = newPasswordHash;
+        Username = userName;
+        Email = email;
+        PasswordHash = passwordHash;
         UpdatedAt = DateTime.UtcNow;
     }
     public void AddPost(Post post)

@@ -5,7 +5,7 @@ public interface IPostService
 {
     Task<PostResponse> CreateAsync(CreatePostRequest req);
     Task<IEnumerable<PostResponse>> GetAllAsync();
-    Task<PostResponse?> GetByIdAsync(int id);
-    Task<PostResponse?> UpdateAsync(int id, UpdatePostRequest req);
-    Task DeleteAsync(int id);
+    Task<PostResponse?> GetByIdAsync(Guid id);
+    Task<PostResponse?> UpdateAsync(Guid id, UpdatePostRequest req);
+    Task DeleteAsync(Guid id);
 }

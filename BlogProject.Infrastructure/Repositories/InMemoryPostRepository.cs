@@ -8,8 +8,6 @@ public class InMemoryPostRepository : IRepository<Post>
     private static readonly List<Post> posts = new();
     public async Task<Post> AddAsync(Post post)
     {
-        //var id = ++idCounter;
-        //post.SetId(id);
         posts.Add(post);
         return post;
     }
@@ -24,8 +22,8 @@ public class InMemoryPostRepository : IRepository<Post>
     public async Task<Post?> UpdateAsync(Guid id, Post post)
     {
         var postToUpdate = posts.FirstOrDefault(p => p.Id == id);
-        //if (postToUpdate is not null)
-        //    postToUpdate.Update(title, content);
+        if (postToUpdate is not null)
+            postToUpdate.Update(post.Title, post.Content);
         return postToUpdate;
     }
     public async Task<Post?> GetByIdAsync(Guid id) => posts.FirstOrDefault(p => p.Id == id);

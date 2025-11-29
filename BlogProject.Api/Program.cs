@@ -1,5 +1,6 @@
 using BlogProject.Application.Repositories;
 using BlogProject.Application.Services;
+using BlogProject.Application.Services.Concrete;
 using BlogProject.Domain.Entities;
 using BlogProject.Infrastructure.Repositories;
 
@@ -12,7 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddScoped<IRepository<Post>, InMemoryPostRepository>()
     .AddScoped<IRepository<User>, InMemoryUserRepository>()
-    .AddScoped<IPostService,PostService>();
+    .AddScoped<IPostService,PostService>()
+    .AddScoped<IUserService,UserService>();
+
 
 var app = builder.Build();
 
