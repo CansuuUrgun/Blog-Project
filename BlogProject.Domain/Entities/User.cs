@@ -49,7 +49,7 @@ public class User
         Email = email;
         PasswordHash = passwordHash;
         UpdatedAt = DateTime.UtcNow;
-        posts = posts;
+        posts = posts; //TODO Kalkabilir?
     }
     public void AddPost(Post post)
     {

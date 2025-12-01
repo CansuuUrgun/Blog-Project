@@ -37,9 +37,11 @@ public class UserService(IRepository<User> repository) : IUserService
     }
     public async Task DeleteAsync(Guid id) => await userRepository.DeleteAsync(id);
 
-    public Task<IEnumerable<PostResponse>> GetPostsAsync(Guid userId)
+    public async Task<IEnumerable<PostResponse>?> GetPostsAsync(Guid userId)
     {
-        throw new NotImplementedException();
+        var user = await userRepository.GetByIdAsync(userId);
+        if (user == null) return null;
+        return user.Posts?.Select(p =>  new PostResponse(p.Id, p.Title, p.Content, p.CreatedAt, p.UpdatedAt, p.Author.Username));
     }
     public async Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req)
     {

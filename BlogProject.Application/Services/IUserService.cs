@@ -9,5 +9,5 @@ public interface IUserService
     Task<IEnumerable<UserResponse>> GetAllAsync();
     Task DeleteAsync(Guid id);
     Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req);
-    Task<IEnumerable<PostResponse>> GetPostsAsync(Guid userId);
+    Task<IEnumerable<PostResponse>?> GetPostsAsync(Guid userId);
 }

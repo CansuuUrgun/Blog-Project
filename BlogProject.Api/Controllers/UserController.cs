@@ -55,4 +55,12 @@ public class UserController(IUserService userService) : ControllerBase
         var post = await userService.AddPostAsync(userId, req);
         return Ok(post);
     }
+
+    [HttpGet("{userId:Guid}/posts")]
+    public async Task<IActionResult> GetPosts(Guid userId)
+    {
+        var posts = await userService.GetPostsAsync(userId);
+        if (posts is null) return NotFound();
+        return Ok(posts);
+    }
 }
