@@ -10,10 +10,9 @@ public class User
     public string PasswordHash { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-    public List<Post>? Posts { get; private set; }
-    //private readonly List<Post> _posts = new();
-    //public IReadOnlyCollection<Post> Posts => _posts.AsReadOnly();
-    
+    private readonly List<Post> posts = new();
+    public IReadOnlyCollection<Post> Posts => posts.AsReadOnly();
+
     //TODO ROL??
 
     private User(string username, string email, string passwordHash)
@@ -36,7 +35,7 @@ public class User
             throw new DomainException("PasswordHash cannot be empty");
         return new User(username, email, passwordHash);
     }
-    public void Update(string userName,string email, string passwordHash)
+    public void Update(string userName,string email, string passwordHash, List<Post> posts)
     {
         if (string.IsNullOrWhiteSpace(userName))
             throw new DomainException("Username cannot be empty");
@@ -50,19 +49,18 @@ public class User
         Email = email;
         PasswordHash = passwordHash;
         UpdatedAt = DateTime.UtcNow;
+        posts = posts;
     }
     public void AddPost(Post post)
     {
-        if (Posts == null)
-            Posts = new List<Post>();
-        Posts.Add(post);
+        posts.Add(post);
         UpdatedAt = DateTime.UtcNow;
     }
     public void RemovePost(Post post)
     {
         if (Posts == null || !Posts.Contains(post))
             throw new DomainException("Post not found");
-        Posts.Remove(post);
+        posts.Remove(post);
         UpdatedAt = DateTime.UtcNow;
     }
 }

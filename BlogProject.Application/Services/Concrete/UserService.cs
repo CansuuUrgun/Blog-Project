@@ -41,10 +41,24 @@ public class UserService(IRepository<User> repository) : IUserService
     {
         throw new NotImplementedException();
     }
-    public Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req)
+    public async Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req)
     {
-        throw new NotImplementedException();
+        var user = await userRepository.GetByIdAsync(userId);
+        if (user == null) throw new Exception("User not found");
+
+        var post = Post.Create(req.Title, req.Content, user);
+
+        var updatedUser = await userRepository.UpdateAsync(userId, user);
+
+        return new PostResponse
+        (
+            post.Id,
+            post.Title,
+            post.Content,
+            post.CreatedAt,
+            post.UpdatedAt,
+            post.Author.Username
+        );
     }
 
-    
 }

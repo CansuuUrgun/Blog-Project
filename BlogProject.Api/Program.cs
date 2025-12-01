@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddScoped<IRepository<Post>, InMemoryPostRepository>()
     .AddScoped<IRepository<User>, InMemoryUserRepository>()
-    .AddScoped<IPostService,PostService>()
+    //.AddScoped<IPostService, PostService>()
     .AddScoped<IUserService,UserService>();
 
 

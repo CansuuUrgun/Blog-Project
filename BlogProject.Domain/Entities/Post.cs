@@ -9,7 +9,6 @@ public class Post
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public User Author { get; private set; } = null!;
-    public Guid AuthorId { get; private set; }
 
     private Post(string title, string content, User author)
     {
@@ -17,7 +16,6 @@ public class Post
         Title = title;
         Content = content;
         Author = author ?? throw new DomainException("Author cannot be null");
-        AuthorId = author.Id;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -30,6 +28,7 @@ public class Post
         if(author is null)
             throw new DomainException("Author cannot be null");
         var post =  new Post(title, content, author);
+        
         author.AddPost(post);
 
         return post;

@@ -22,7 +22,7 @@ public class InMemoryUserRepository : IRepository<User>
     {
         var userToUpdate = users.FirstOrDefault(u => u.Id == id);
         if (userToUpdate is not null)
-            userToUpdate.Update(entity.Username, entity.Email, entity.PasswordHash);
+            userToUpdate.Update(entity.Username, entity.Email, entity.PasswordHash,entity.Posts.ToList());
         
         return userToUpdate;
     }

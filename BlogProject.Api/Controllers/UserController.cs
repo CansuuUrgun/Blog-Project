@@ -49,4 +49,10 @@ public class UserController(IUserService userService) : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{userId:Guid}/posts")]
+    public async Task<IActionResult> AddPost(Guid userId, [FromBody] CreatePostRequest req)
+    {
+        var post = await userService.AddPostAsync(userId, req);
+        return Ok(post);
+    }
 }
