@@ -63,4 +63,11 @@ public class UserController(IUserService userService) : ControllerBase
         if (posts is null) return NotFound();
         return Ok(posts);
     }
+
+    [HttpDelete("{userId:Guid}/posts/{postId:Guid}")]
+    public async Task<IActionResult> DeletePostFromUser(Guid userId, Guid postId)
+    {
+        await userService.DeletePostFromUser(userId, postId);
+        return NoContent();
+    }
 }

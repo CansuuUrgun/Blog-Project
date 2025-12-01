@@ -10,4 +10,5 @@ public interface IUserService
     Task DeleteAsync(Guid id);
     Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req);
     Task<IEnumerable<PostResponse>?> GetPostsAsync(Guid userId);
+    Task DeletePostFromUser(Guid userId, Guid postId);
 }

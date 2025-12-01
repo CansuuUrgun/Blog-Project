@@ -45,12 +45,10 @@ public class UserService(IRepository<User> repository) : IUserService
     }
     public async Task<PostResponse> AddPostAsync(Guid userId, CreatePostRequest req)
     {
-        var user = await userRepository.GetByIdAsync(userId);
+        User? user = await userRepository.GetByIdAsync(userId);
         if (user == null) throw new Exception("User not found");
 
         var post = Post.Create(req.Title, req.Content, user);
-
-        var updatedUser = await userRepository.UpdateAsync(userId, user);
 
         return new PostResponse
         (
@@ -63,4 +61,14 @@ public class UserService(IRepository<User> repository) : IUserService
         );
     }
 
+    public async Task DeletePostFromUser(Guid userId, Guid postId)
+    {
+        var user = await userRepository.GetByIdAsync(userId);
+        if (user == null) throw new Exception("User not found");
+        
+        var post = user?.Posts.FirstOrDefault(p => p.Id == postId);
+        if (post == null) throw new Exception("Post not found");
+        
+        user?.RemovePost(post);
+    }
 }
